@@ -1,0 +1,96 @@
+site_name: "eq.utils"
+site_description: "Miscellaneous utility functions."
+site_author: dave.hirschfeld<at>gmail.com
+site_url: https://github.com/energy-quants/eq-utils
+
+repo_name: "eq-utils"
+repo_url: https://github.com/energy-quants/eq-utils
+
+docs_dir: src
+nav:
+
+theme:
+  name: material
+  custom_dir: theme
+  language: en
+  features:
+    - tabs
+  palette:
+    - scheme: default
+      primary: black
+      accent: yellow
+      toggle:
+          icon: material/weather-night
+          name: Switch to dark mode
+    - scheme: slate
+      primary: black
+      accent: yellow
+      toggle:
+          icon: material/weather-sunny
+          name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+  icon:
+    logo: material/library
+    repo: fontawesome/brands/git-alt
+
+markdown_extensions:
+  - admonition:
+  - codehilite:
+      guess_lang: false
+  - pymdownx.arithmatex:
+      inline_syntax: ['dollar']
+      block_syntax: ['dollar', 'begin']
+      generic: false
+  - pymdownx.details:
+  - pymdownx.inlinehilite:
+  - pymdownx.mark:
+  - pymdownx.superfences:
+      preserve_tabs: true
+      custom_fences:
+        - name: math
+          class: arithmatex
+          format: !!python/name:pymdownx.arithmatex.fence_mathjax_format
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_div_format
+  - pymdownx.tabbed:
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - toc:
+      permalink: true
+      toc_depth: 4
+
+plugins:
+  - search
+  - autorefs
+  - mkdocstrings
+  # - mknotebooks
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [../src]
+          # https://mkdocstrings.github.io/python/usage/#globallocal-options
+          options:
+            heading_level: 4
+            show_root_heading: true
+            show_root_full_path: true
+            members_order: "source"
+            show_submodules: true
+            docstring_style: "numpy"
+            docstring_section_style: "list"
+            merge_init_into_class: true
+            show_if_no_docstring: true
+            separate_signature: false  # TODO: check!
+            show_signature_annotations: true
+
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - https://cdn.jsdelivr.net/npm/mermaid@8.5.2/dist/mermaid.min.js
