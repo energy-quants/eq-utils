@@ -1,0 +1,82 @@
+[project]
+name = "eq-utils"
+description = 'Miscellaneous utility functions.'
+license = { file="LICENSE" }
+readme = "README.md"
+keywords = ["python"]
+dynamic = ["version"]
+requires-python = ">=3.10"
+classifiers = [
+  "License :: OSI Approved :: MIT License"
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "black",
+  "hatch-vcs",
+  "hatchling",
+  "isort",
+]
+docs = [
+  "mkdocs",
+  "mkdocs-material",
+  "mkdocs-material-extensions",
+  "mkdocstrings",
+  "numpydoc",
+]
+test = [
+  "coverage",
+  "hypothesis",
+  "pytest",
+  "pytest-cov",
+  "pytest-doctestplus",
+]
+
+[project.urls]
+"Home Page" = "https://github.com/energy-quants/eq-utils"
+"Source Code" = "https://github.com/energy-quants/eq-utils"
+
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.hatch]
+# https://github.com/ofek/hatch-vcs
+version.source = "vcs"
+version.raw-options = { version_scheme = "post-release" }
+# https://hatch.pypa.io/latest/config/build/
+build.include = ["/src"]
+build.hooks.vcs.version-file = "src/eq/utils/_version.py"
+build.targets.wheel.strict-naming = false
+build.targets.wheel.packages = ["/src/eq"]
+
+[tool.black]
+line_length = 100
+
+[tool.isort]
+# https://pycqa.github.io/isort/docs/configuration/options.html
+profile = "black"
+line_length = 100
+force_single_line = true
+sections = [
+  "FUTURE",
+  "STDLIB",
+  "THIRDPARTY",
+  "EQ",
+  "FIRSTPARTY",
+  "LOCALFOLDER",
+]
+default_section = "THIRDPARTY"
+known_eq = "eq"
+known_first_party = "eq.utils"
+
+[tool.pytest.ini_options]
+# https://docs.pytest.org/en/7.1.x/reference/reference.html#ini-options-ref
+testpaths = ["tests"]
+addopts = "-lv --color=yes --code-highlight=yes --import-mode=importlib --junit-xml=test-results.xml  --cov=eq.utils --cov-report=html --cov-report xml:coverage-results.xml"
+junit_family = "xunit2"
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
